@@ -1,4 +1,3 @@
-
 //Manipulating arrays without using built-in methods
 // like push, pop, shift, unshift, splice, slice, etc.
 
@@ -72,31 +71,55 @@ function removeAt(arr,idx){
     return arr; 
 }
 
+/***  swapPairs method of an array  ***/
 function swapPairs(arr){
-    for (let i = 0; i < arr.length-1; i+=2){
-        let temp = arr[i];
-            arr[i] = arr[i + 1];
-            arr[i + 1] = temp;
-    }
+    for (let i = 0; i < arr.length-1; i+=2){ // loop through the array by 2
+        let temp = arr[i]; // store the first element in a temp variable
+            arr[i] = arr[i + 1]; // set the first element to the second element
+            arr[i + 1] = temp; // set the second element to the temp variable
+    };
         return arr;
-}
+};
 
+/***  Removing Duplicates of an array  ***/
 function removeDuplicates(arr){
-    let x = 0;
-    for(let i = 0; i < arr.length; i++){
-        if(arr[i] !== arr[i-1]){
-            arr[x] = arr[i];
-            x++;
-        }
-    }
-    arr.length = x;
+    let x = 1; // start at 1 because we are comparing the current element to the previous element
+    for(let i = 1; i < arr.length; i++){ 
+        if(arr[i] !== arr[i-1]){ // if the current element is not equal to the previous element
+            arr[x] = arr[i]; // set the current element to the next element
+            x++; // increment x by 1 to keep track of the length of the array
+        };
+    };
+    arr.length = x; // set the length of the array to x which removes amount of duplicates
     return arr;
 };
 
+/***  Move the lowest value to Front of an array  ***/
+// [4,2,3,1,5] => [1,4,2,3,5]
+function minToFront(arr){
+    let min = arr[0]; // set the first element to the first variable
+    let minIdx = 0; // set the index to 0 to keep track of the index of the min value
+    
+    // 1. find the min value in the array
+    for(let i = 1; i < arr.length; i++){ 
+        if(arr[i] < min){ 
+            min = arr[i]; 
+            minIdx = i; 
+        };
+    };
+    // 2. remove the min value from the array and shift all elements to the right
+    for(let i = minIdx; i > 0; i--){ 
+        arr[i] = arr[i - 1]; // arr[i-1] is the previous element thats going to be shifted to the right from the current index
+    };
 
+    // 3. set the first element to the min value
+    arr[0] = min;
+    return arr;
+};
 // test cases
-myarr = [1,1,2,2,3,4,4,5];
-console.log(removeDuplicates(myarr)); // [1,2,3,4,5]
+myarr = [4,2,3,1,5];
+console.log(minToFront(myarr)); // [1,4,2,3,5]
+// console.log(removeDuplicates(myarr)); // [1,2,3,4,5]
 // console.log(swapPairs(myarr));// [2,1,4,3,5]
 // console.log(pushFront(myarr,3)); // [0,1,2,3,4,5]
 // console.log(popFront(myarr));// [2,3,4,5]
